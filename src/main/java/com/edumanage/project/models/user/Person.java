@@ -18,7 +18,7 @@ public class Person {
     @Column(name = "person_id")
     private Long id;
 
-    //clave foranea para user id
+    // clave foranea para user id
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -29,15 +29,24 @@ public class Person {
     @Column(name = "last_name", nullable = false)
     private String lastName;
     @Column(name = "document", nullable = false)
-    private int document;
+    private String document;
+
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "address")
+    private String address;
     @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
 
-    public Person(Long id, String firstName, String lastName, int document, LocalDate birthDate) {
+    public Person(Long id, String firstName, String lastName, String document, LocalDate birthDate, String phone,
+            String address) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.document = document;
         this.birthDate = birthDate;
+        this.phone = phone;
+        this.address = address;
     }
 }
