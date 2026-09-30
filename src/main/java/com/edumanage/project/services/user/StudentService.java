@@ -59,7 +59,7 @@ public class StudentService {
         student.setGrade(grade);
 
         studentRepository.save(student);
-        return dto;
+        return convertToDTO(student);
     }
 
     public List<StudentDTO> getAllStudents() {
@@ -83,6 +83,7 @@ public class StudentService {
     // metodo que convierte un objeto student en su dto con los datos no sencibles
     private StudentDTO convertToDTO(Student student) {
         StudentDTO dto = new StudentDTO();
+        dto.setId(student.getId());
 
         dto.setFirstName(student.getPerson().getFirstName());
         dto.setMiddleName(student.getPerson().getMiddleName());

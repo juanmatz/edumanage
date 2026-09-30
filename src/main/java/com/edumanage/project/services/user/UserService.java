@@ -25,8 +25,18 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public List<UserDTO> getAllUsersDTO() {
+        return userRepository.findAll().stream().map(this::convertToDTO).toList();
+    }
+
     public Optional<User> getUserById(Long id) {
         return userRepository.findById(id);
+    }
+
+    public UserDTO getUserDTOById(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User Not found"));
+        return convertToDTO(user);
     }
 
     public UserDTO saveUser(UserDTO userDTO) {
@@ -35,7 +45,7 @@ public class UserService {
         } else {
             User user = new User();
             user.setUserName(userDTO.getUserName());
-            user.setEmail(userDTO.getEmail());
+            user.setEmail(userDTO.getEmail());  
             user.setPassword(userDTO.getPassword());
             user.setStatus(UserStatus.ACTIVE);
             try {
@@ -47,6 +57,7 @@ public class UserService {
                 throw new RuntimeException("Invalid role provided: " + userDTO.getRole());
             }
             userRepository.save(user);
+            userDTO.setId(user.getId());
         }
         return userDTO;
     }
@@ -55,6 +66,10 @@ public class UserService {
         User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User Not found"));
 
         if (userDTO.getEmail() != null) {
+            if (!userDTO.getEmail().equals(user.getEmail())
+                    && userRepository.existsByEmail(userDTO.getEmail())) {
+                throw new RuntimeException("Email already exists");
+            }
             user.setEmail(userDTO.getEmail());
         }
 
@@ -79,6 +94,7 @@ public class UserService {
         }
 
         userRepository.save(user);
+        userDTO.setId(user.getId());
         return userDTO;
     }
 
@@ -98,5 +114,18 @@ public class UserService {
         }
         user.setPassword(newPassword);
         userRepository.save(user);
+    }
+
+    public UserDTO convertToDTO(User user) {
+        if (user == null) {
+            return null;
+        }
+        UserDTO dto = new UserDTO();
+        dto.setId(user.getId());
+        dto.setUserName(user.getUserName());
+        dto.setEmail(user.getEmail());
+        dto.setRole(user.getRole() != null && user.getRole().getRol() != null ? user.getRole().getRol().name() : null);
+        dto.setStatus(user.getStatus() != null ? user.getStatus().name() : null);
+        return dto;
     }
 }

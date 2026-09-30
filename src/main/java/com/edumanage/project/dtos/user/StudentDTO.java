@@ -15,6 +15,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StudentDTO {
+    private Long id;
+
     @NotBlank(message = "Username is Required")
     private String username;
     @Size(min = 8, message = "password must be at least 8 characters long")
