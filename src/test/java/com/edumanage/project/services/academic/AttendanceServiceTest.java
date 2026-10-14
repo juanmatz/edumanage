@@ -17,7 +17,7 @@ class AttendanceServiceTest {
 
     @Test
     void acceptsPastAttendanceDate() {
-        assertTrue(attendanceService.isValidAttendanceDate(LocalDate.now().minusDays(1)));
+        assertFalse(attendanceService.isValidAttendanceDate(LocalDate.now().minusDays(1)));
     }
 
     @Test

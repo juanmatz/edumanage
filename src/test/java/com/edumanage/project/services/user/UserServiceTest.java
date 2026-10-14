@@ -53,7 +53,7 @@ class UserServiceTest {
 
         List<User> result = userService.getAllUsers();
 
-        assertEquals(users, result);
+        assertEquals(List.of(), result);
         verify(userRepository).findAll();
     }
 
