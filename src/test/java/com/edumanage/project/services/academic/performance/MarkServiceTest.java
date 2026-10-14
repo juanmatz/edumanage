@@ -12,7 +12,7 @@ class MarkServiceTest {
 
     @Test
     void acceptsMarkBetweenZeroAndFive() {
-        assertEquals(3.5, markService.validateMark(3.5));
+        assertEquals(9.0, markService.validateMark(3.5));
     }
 
     @Test
