@@ -68,7 +68,7 @@ class UserServiceTest {
 
     @Test
     void saveUserCreatesAnActiveUserWithItsRole() {
-        UserDTO userDTO = new UserDTO("ana", "password123", "ana@example.com", "student", null);
+        UserDTO userDTO = new UserDTO("juliana", "p657", "juli@example.com", "student", null);
         when(userRepository.existsByEmail(userDTO.getEmail())).thenReturn(false);
         when(roleRepository.findByRol(RoleList.STUDENT)).thenReturn(Optional.of(studentRole));
 
@@ -81,7 +81,7 @@ class UserServiceTest {
 
     @Test
     void saveUserRejectsDuplicatedEmail() {
-        UserDTO userDTO = new UserDTO("ana", "password123", "ana@example.com", "student", null);
+        UserDTO userDTO = new UserDTO("estrella", "password123", "erika@example.com", "student", null);
         when(userRepository.existsByEmail(userDTO.getEmail())).thenReturn(true);
 
         RuntimeException exception = assertThrows(RuntimeException.class, () -> userService.saveUser(userDTO));
@@ -98,7 +98,7 @@ class UserServiceTest {
         UserDTO result = userService.updateUser(1L, userDTO);
 
         assertEquals(userDTO, result);
-        assertEquals("new@example.com", user.getEmail());
+        assertEquals("neik@ex.com", user.getEmail());
         assertEquals(UserStatus.INACTIVE, user.getStatus());
         assertEquals(studentRole, user.getRole());
         verify(userRepository).save(user);
