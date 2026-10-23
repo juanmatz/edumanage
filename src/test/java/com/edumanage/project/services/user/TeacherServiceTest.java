@@ -73,7 +73,7 @@ class TeacherServiceTest {
         List<TeacherDTO> result = teacherService.getAllTeachers();
 
         assertEquals(1, result.size());
-        assertEquals("Carlos", result.get(0).getFirstName());
+        assertEquals("juan", result.get(0).getFirstName());
         assertEquals("Matemáticas", result.get(0).getSpeciality());
         assertEquals(30L, result.get(0).getId());
     }
