@@ -81,7 +81,7 @@ class ParentServiceTest {
         List<ParentDTO> result = parentService.getAllParentsDTO();
 
         assertEquals(1, result.size());
-        assertEquals("marta", result.get(0).getUserName());
+        assertEquals("Andres", result.get(0).getUserName());
         assertEquals(50L, result.get(0).getId());
         assertEquals(List.of(100L), result.get(0).getStudentIds());
     }
