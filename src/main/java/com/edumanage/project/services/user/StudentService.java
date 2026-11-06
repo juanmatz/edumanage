@@ -50,6 +50,7 @@ public class StudentService {
         person.setPhone(dto.getPhone());
         person.setAddress(dto.getAddress());
         person.setUser(user);
+        userRepository.save(user);
 
         Student student = new Student();
         student.setPerson(person);
